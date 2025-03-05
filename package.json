@@ -1,0 +1,26 @@
+{
+  "name": "polkadot-scripts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "proxies": "jiti proxies/index"
+  },
+  "keywords": [],
+  "author": "CocDap",
+  "license": "MIT",
+  "dependencies": {
+    "@noble/curves": "^1.6.0",
+    "@noble/hashes": "^1.5.0",
+    "@polkadot-api/descriptors": "file:.papi/descriptors",
+    "@polkadot-api/substrate-bindings": "^0.9.3",
+    "@subsquid/ss58": "^2.0.2",
+    "dotenv": "^16.4.5",
+    "polkadot-api": "^1.6.5",
+    "std-env": "^3.7.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.8.7",
+    "jiti": "^2.3.3"
+  }
+}
