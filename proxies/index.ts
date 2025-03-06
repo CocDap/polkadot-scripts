@@ -1,7 +1,7 @@
 import { Binary, TxCallData, TxFinalizedPayload } from "polkadot-api"
 import { addressOf, addressOfSubstrate, publicKeyOf, toMultiAddress } from "../config/account"
 import { Chain, magicApi } from "../config/api"
-import { callAsProxy, createProxy, transferKeepAlive} from "../config/calls"
+import { callAsProxy, createProxy, removeProxy, transferKeepAlive} from "../config/calls"
 
 
 // Westend use SS58 address 42
@@ -17,16 +17,23 @@ console.log('My delegate address:', myDelegateAddress)
 // 0. convert to myAccount and my delegate multi address
 const myMultiAddress = toMultiAddress(myAccount)
 const myDelegateMultiAddress = toMultiAddress(myDelegateAddress)
-
 const myReceiverMultiAddress = toMultiAddress('5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY')
+
 // 1. setup proxy account for it to your own
 // Make sure your signer account have enough funds
-const proxySetup = createProxy({ api }, myDelegateMultiAddress)
+const proxySetup = await createProxy({ api }, myDelegateMultiAddress)
+console.log('Proxy setup:', proxySetup)
 
 // 2. get transfer decoded call
-const transferCall = transferKeepAlive({ api }, myReceiverMultiAddress, BigInt(1))
+const transferCall = await transferKeepAlive({ api }, myReceiverMultiAddress, BigInt(1))
+console.log('Transfer call:', transferCall)
 
 // 3. call as proxy with delegate signer 
-const transferProxy = callAsProxy({ api }, { address: myMultiAddress, call: transferCall })
+const transferProxy = await callAsProxy({ api }, { address: myMultiAddress, call: transferCall })
+console.log('Transfer proxy:', transferProxy)
 
-// disconnect();
+// 4. remove proxy
+const removeProxyCall = await removeProxy({ api }, myDelegateMultiAddress)
+console.log('Proxy removed:', removeProxyCall)
+
+disconnect();    
