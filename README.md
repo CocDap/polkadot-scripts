@@ -7,7 +7,7 @@
 for example: Westend2
 
 ```bash
-npx papi add -n westend2
+npx papi add west -n westend2
 ```
 
 1. Install dependencies
